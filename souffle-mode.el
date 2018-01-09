@@ -46,7 +46,7 @@
   "Indent the current line"
   (interactive)
   (beginning-of-line)
-  (if (looking-at "^[ \t]*$") ; No indetation for an empty line
+  (if (looking-at "^[ \t]*$") ; No indentation for an empty line
       (indent-line-to 0)
     (if (looking-at "^[ \t]*\\(\\.decl\\|\\.type\\|\\.init\\|\\.comp\\|#\\)")
 	(indent-line-to 0)
@@ -57,16 +57,19 @@
 	  (save-excursion
 	    (while not-indented ; Iterate backwards until we find an indentation hint
 	      (forward-line -1)
-	      (if (looking-at "^[ \t]*\\(\\.|\\.decl\\|\\.type\\|\\.comp\\|\\.init\\|#include\\)")
+	      (if (looking-at "^[ \t]*\\(\\.decl\\|\\.type\\|\\.init\\|\\.comp\\|#\\)")
 		  (progn
+		    (message "Here1")
 		    (setq cur-indent (current-indentation))
 		    (setq not-indented nil))
 		(if (looking-at "^.*:-.*")
 		    (progn
+		      (message "Here2")
 		      (setq cur-indent souffle-tab-width)
 		      (setq not-indented nil))
 		  (if (looking-at "^[ \t]*/\\*")
 		      (progn
+			(message "Here3")
 			(setq cur-indent 0)
 			(setq not-indented nil))
 		    )))))
